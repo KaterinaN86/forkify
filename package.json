@@ -1,0 +1,23 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "forkify application",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html  --no-optimize --dist-dir ./dist"
+  },
+  "author": "Kate Naumova",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.2",
+    "os-browserify": "^0.3.0",
+    "parcel": "^2.6.2",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "core-js": "^3.23.3",
+    "fracty": "^1.0.11",
+    "regenerator-runtime": "^0.13.9",
+    "uniqid": "^5.4.0"
+  }
+}
