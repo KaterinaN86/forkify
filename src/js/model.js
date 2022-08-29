@@ -259,6 +259,7 @@ export const newRecipe = async function (newRecipe) {
       publisher: newRecipe.publisher,
       ingredients,
     };
+    console.log(`Recipe ID is: ${state.recipe.id}`);
     //in the url template literal the ? specifies parameters like the search parameter we used before
     //this way by sending the key the recipe will be marked as our own
     const data = await AJAX(`${API_URL}?key=${KEY}`, recipe);
@@ -407,6 +408,10 @@ const clearShoppingList = function () {
   localStorage.clear('shopping');
 };
 
+const newFeature = function () {
+  console.log(`Welcome to the application`);
+};
+
 //loading the bookmarks data, schedule data and shopping list from local storage
 const init = function () {
   //initiallizing the week property
@@ -421,6 +426,9 @@ const init = function () {
 
   const localStorageList = JSON.parse(localStorage.getItem('shopping'));
   if (localStorageList) state.listItems = localStorageList;
+
+  //testing
+  newFeature();
 };
 
 init();

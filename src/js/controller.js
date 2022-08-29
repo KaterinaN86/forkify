@@ -302,7 +302,6 @@ const init = function () {
   shoppingListView.addHandlerUpdateQuantity(controlUpdateQuantity);
   shoppingListView.addHandlerDeleteIng(controlDeleteListItem);
   persist(425);
-  console.log('Welcome');
 };
 
 init();
