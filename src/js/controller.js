@@ -279,7 +279,7 @@ const init = function () {
   scheduleView.addHandlerDeleteRecipe(controlDeleteRecipeFromSchedule);
   shoppingListView.addHandlerUpdateQuantity(controlUpdateQuantity);
   shoppingListView.addHandlerDeleteIng(controlDeleteListItem);
-  console.log('Welcome');
+  
 };
 
 init();
