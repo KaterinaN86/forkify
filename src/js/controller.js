@@ -263,28 +263,6 @@ const controlDeleteRecipeFromSchedule = function (day, id) {
   scheduleView.render(model.state.week);
 };
 
-// const myTests = function (pin) {
-//   const validLength = pin.length === 4 || pin.length === 6;
-
-//   const valid = Array.from(pin).every(el => Number.isFinite(+el) && el !== ' ');
-//   if (valid === true && validLength === true) return true;
-//   else return false;
-// };
-
-function persist(number) {
-  let counter = 0;
-
-  const numberString = number + '';
-
-  const multiplication = function (numberString) {
-    return numberString.split('').reduce((prev, curr) => prev * curr, 1);
-  };
-  while (multiplication(numberString) > 9) {
-    counter++;
-    multiplication();
-  }
-}
-
 const init = function () {
   bookmarksView.addHandlerLoadBookmarks(controlBookmarks);
   scheduleView.addHandlerLoadSchedule(controlSchedule);
@@ -301,7 +279,7 @@ const init = function () {
   scheduleView.addHandlerDeleteRecipe(controlDeleteRecipeFromSchedule);
   shoppingListView.addHandlerUpdateQuantity(controlUpdateQuantity);
   shoppingListView.addHandlerDeleteIng(controlDeleteListItem);
-  persist(425);
+  console.log('Welcome');
 };
 
 init();
