@@ -13,17 +13,17 @@ export const MODAL_CLOSE_SEC = 2.5; //used for timer that delays the closing of 
 export const MODAL_DATA = `<div class="upload__column">
 <h3 class="upload__heading">Recipe data</h3>
 <label>Title</label>
-<input value="TESTk9" required name="title" type="text" />
+<input placeholder="* Enter recipe title" required name="title" type="text" />
 <label>URL</label>
-<input value="TESTk9" required name="sourceUrl" type="text" />
+<input placeholder="* Enter recipe URL" required name="sourceUrl" type="text" />
 <label>Image URL</label>
-<input value="TESTk9" required name="image" type="text" />
+<input placeholder="* Enter recipe image" required name="image" type="text" />
 <label>Publisher</label>
-<input value="TESTk9" required name="publisher" type="text" />
+<input placeholder="* Enter recipe publisher" required name="publisher" type="text" />
 <label>Prep time</label>
-<input value="23" required name="cookingTime" type="number" />
+<input placeholder="* Enter cooking time (enter number)" required name="cookingTime" type="number" />
 <label>Servings</label>
-<input value="23" required name="servings" type="number" />
+<input placeholder="* Enter number of servings (enter number)" required name="servings" type="number" />
 
 </div><!-- end of upload column -->
 
