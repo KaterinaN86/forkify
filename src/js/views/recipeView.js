@@ -102,7 +102,7 @@ class RecipeView extends View {
 
     <button class="btn--round btn--shopping tooltip">
     <svg>
-    <use href="${icons}#icon-delete"></use>
+    <use href="${icons}#icon-squared-cross"></use>
   </svg>
   <span class="tooltiptext">Remove user recipe</span>
     </button>
