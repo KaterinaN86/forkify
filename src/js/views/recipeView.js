@@ -16,7 +16,7 @@ class RecipeView extends View {
   _errorMessage = `We couldn't find the recipe! Please try another.`;
   _message = ``;
 
-  //in this view we generate markup that shows the bookmark icon (epmty or filled) the schedule dropdown and aslo a user icon if the recipe has an unique user key which means it has been uploaded by the user and olny the user can see it
+  //in this view we generate markup that shows the bookmark icon (empty or filled) the schedule dropdown and also a user icon if the recipe has an unique user key which means it has been uploaded by the user and olny the user can see it
   _generateMarkup() {
     return ` <figure class="recipe__fig">
     <img src= "${this._data.image}" alt="${
@@ -99,7 +99,6 @@ class RecipeView extends View {
     <span class="tooltiptext">Add to shopping list</span>
   </button>
   <!-- This user icon gets shown only if the recipe was uploaded by the user. On hover a tooltip is shown warning that when clicked the recipe will be deleted from the database -->
-
     <button class="btn--round btn--shopping recipe__delete tooltip ${
       this._data.key ? '' : 'hidden'
     }">

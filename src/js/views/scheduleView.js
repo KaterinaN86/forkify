@@ -52,12 +52,12 @@ class scheduleView extends View {
             <img src="${rec.image}" alt="Test" />
           </figure>
           <div class="preview__data" >
-          <!-- a calendar icon is displayed. We can use this icon to remove recipe from schedule. A tooltip is also displayed -->
+          <!-- a squared cross icon is displayed. We can use this icon to remove recipe from schedule. Tooltip is also displayed -->
           <div class="preview__schedule-generated tooltip " data-weekday=${weekday} data-rec-id=${
       rec.id
     }>
           <svg>         
-            <use  href="${icons}#icon-delete"></use>            
+            <use  href="${icons}#icon-squared-cross"></use>            
           </svg>
           <span class="tooltiptext">Remove from schedule</span>
         </div> <!-- end of preview__schedule-generated -->
@@ -88,14 +88,14 @@ class scheduleView extends View {
     this._parentElement.addEventListener('click', function (e) {
       //using event delegation, we check if the event was triggered by the calendar icon element
       const dataEl = e.target.closest('.preview__schedule-generated');
-      //quard clause
+      //guard clause
       if (!dataEl) return;
 
       //we get this data from the HTML, depending on which recipe the user has clicked
       const id = dataEl.dataset.recId; //recipe id
       const day = dataEl.dataset.weekday; //name of the day of the week
 
-      //calling the corresponding handler from the conroller
+      //calling the corresponding handler from the controller
       handler(day, id);
     });
   }
