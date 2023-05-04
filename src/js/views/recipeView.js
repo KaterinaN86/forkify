@@ -70,7 +70,7 @@ class RecipeView extends View {
     <use href="${icons}#icon-calendar"></use>
   </svg>
   <span>Schedule</span></button>
-    <div class="dropdown-content">
+    <div class="dropdown-content btn--round">
       <a id='0' >Monday</a>
       <a id='1'>Tuesday</a>
       <a id='2' >Wednesday</a>
@@ -79,7 +79,7 @@ class RecipeView extends View {
       <a id='5' >Saturday</a>
       <a id='6' >Sunday</a>     
     </div>
-    <span></span>
+    <span>&nbsp;</span>
   </div> 
     <button class="btn--round btn--bookmark tooltip">
       <svg class="">
@@ -88,7 +88,7 @@ class RecipeView extends View {
     }"></use>
       </svg>
       <!-- on hover this text is shown as a tooltip -->
-    <span class="tooltiptext">Add to bookmarked recipes</span>
+    <span class="tooltiptext">Bookmark recipe</span>
     </button>
   
     <button class="btn--round btn--shopping tooltip">
