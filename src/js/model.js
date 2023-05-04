@@ -34,7 +34,7 @@ export const state = {
   //an array of recipes that have the bookmark property set to true
   bookmarks: [],
 
-  //an a arrat of objects where the first element is the day of the week and the others are the recipes scheduled for that day
+  //an a array of objects where the first element is the day of the week and the others are the recipes scheduled for that day
   week: [],
 
   //am array of ingredients placed in the shopping list
@@ -151,7 +151,7 @@ export const loadSearchResults = async function (query) {
 
     //there is a live connection between the exports and imporst so when the sate data is recieved it will also be updated in the controller.
   } catch (error) {
-    //in the heplper file we rethrow the error we get if a url doesn't return any data and that is why that error can be handled here
+    //in the helper file we rethrow the error we get if a url doesn't return any data and that is why that error can be handled here
     //we need to propagate the error because the result from an async function is allways a fullfilled promise.
     //All sync functions return a promise and we can handle that promise. The fulfilled value from the received promise is the return value of the async function. In the then handler the result that we pass is the returned value from the promise. If there was an error while getting data in the whereAmI function the log where we handle the promise returned from that function will still run. That is why we need to rethrow the error at the end of the promise chain. Even though there is an error in the async function the promise that the async function returns is still fulfilled not rejected. Rethrowing the error will propagate It down the promise chain and so we will manually reject the promise from the async function.
 

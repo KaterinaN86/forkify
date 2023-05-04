@@ -64,7 +64,7 @@ class RecipeView extends View {
         </button>
       </div>
     </div>
-<!-- Each of the days has an id that we can use to determain what day was selected -->
+<!-- Each of the days has an id that we can use to determine what day was selected -->
     <div class="dropdown">  
     <button class="btn dropbtn"><svg>
     <use href="${icons}#icon-calendar"></use>
@@ -100,7 +100,9 @@ class RecipeView extends View {
   </button>
   <!-- This user icon gets shown only if the recipe was uploaded by the user. On hover a tooltip is shown warning that when clicked the recipe will be deleted from the database -->
 
-    <button class="btn--round btn--shopping tooltip">
+    <button class="btn--round btn--shopping recipe__delete tooltip ${
+      this._data.key ? '' : 'hidden'
+    }">
     <svg>
     <use href="${icons}#icon-squared-cross"></use>
   </svg>
@@ -197,7 +199,7 @@ class RecipeView extends View {
   addHandlerDeleteRecipe(handler) {
     this._parentElement.addEventListener('click', function (e) {
       //we check if the user icon was clicked
-      const btn = e.target.closest('.recipe__user-generated');
+      const btn = e.target.closest('.recipe__delete');
       //guard clause
       if (!btn) return;
       handler();
