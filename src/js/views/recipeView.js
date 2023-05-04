@@ -70,7 +70,7 @@ class RecipeView extends View {
     <use href="${icons}#icon-calendar"></use>
   </svg>
   <span>Schedule</span></button>
-    <div class="dropdown-content btn--round">
+    <div class="dropdown-content">
       <a id='0' >Monday</a>
       <a id='1'>Tuesday</a>
       <a id='2' >Wednesday</a>
