@@ -79,13 +79,16 @@ class RecipeView extends View {
       <a id='5' >Saturday</a>
       <a id='6' >Sunday</a>     
     </div>
+    <span></span>
   </div> 
-    <button class="btn--round btn--bookmark">
+    <button class="btn--round btn--bookmark tooltip">
       <svg class="">
         <use href="${icons}#icon-bookmark${
       this._data.bookmarked === true ? '-fill' : ''
     }"></use>
       </svg>
+      <!-- on hover this text is shown as a tooltip -->
+    <span class="tooltiptext">Add to bookmarked recipes</span>
     </button>
   
     <button class="btn--round btn--shopping tooltip">
