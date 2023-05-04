@@ -97,14 +97,12 @@ class RecipeView extends View {
   </button>
   <!-- This user icon gets shown only if the recipe was uploaded by the user. On hover a tooltip is shown warning that when clicked the recipe will be deleted from the database -->
 
-    <div class="recipe__user-generated tooltip ${
-      this._data.key ? '' : 'hidden'
-    }">
+    <button class="btn--round btn--shopping tooltip">
     <svg>
     <use href="${icons}#icon-delete"></use>
   </svg>
   <span class="tooltiptext">Remove user recipe</span>
-    </div>
+    </button>
 
 </div>
   </div>
