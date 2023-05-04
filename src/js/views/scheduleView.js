@@ -56,16 +56,14 @@ class scheduleView extends View {
           <div class="preview__schedule-generated tooltip " data-weekday=${weekday} data-rec-id=${
       rec.id
     }>
-          <svg>
-         
-            <use  href="${icons}#icon-calendar"></use>
-            
+          <svg>         
+            <use  href="${icons}#icon-delete"></use>            
           </svg>
           <span class="tooltiptext">Remove from schedule</span>
         </div> <!-- end of preview__schedule-generated -->
             <h4 class="preview__title" >
           ${weekday}
-         </h4>
+      </h4>
             <h4 class="preview__title">${rec.title}</h4>
             <p class="preview__publisher">${rec.publisher}</p>
             <!-- Displays user icon if recipe has an unique key -->
@@ -73,8 +71,7 @@ class scheduleView extends View {
             <svg>
               <use href="${icons}#icon-user"></use>
             </svg>
-          </div>
-         
+          </div>         
           </div>
         </a>
       </li>`;
@@ -95,8 +92,8 @@ class scheduleView extends View {
       if (!dataEl) return;
 
       //we get this data from the HTML, depending on which recipe the user has clicked
-      const id = dataEl.dataset.recId;//recipe id
-      const day = dataEl.dataset.weekday;//name of the day of the week
+      const id = dataEl.dataset.recId; //recipe id
+      const day = dataEl.dataset.weekday; //name of the day of the week
 
       //calling the corresponding handler from the conroller
       handler(day, id);
