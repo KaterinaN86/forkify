@@ -77,21 +77,9 @@ class RecipeView extends View {
       <a id='3' >Thursday</a>
       <a id='4' >Friday</a>
       <a id='5' >Saturday</a>
-      <a id='6' >Sunday</a>
-     
+      <a id='6' >Sunday</a>     
     </div>
-  </div>
-  
-<!-- This user icon gets shown only if the recipe was uploaded by the user. On hover a tooltip is shown warning that when clicked the recipe will be deleted from the database -->
-
-    <div class="recipe__user-generated tooltip ${
-      this._data.key ? '' : 'hidden'
-    }">
-    <svg>
-    <use href="${icons}#icon-delete"></use>
-  </svg>
-  <span class="tooltiptext">Remove user recipe</span>
-    </div>
+  </div> 
     <button class="btn--round btn--bookmark">
       <svg class="">
         <use href="${icons}#icon-bookmark${
@@ -107,6 +95,16 @@ class RecipeView extends View {
     <!-- on hover this text is shown as a tooltip -->
     <span class="tooltiptext">Add to shopping list</span>
   </button>
+  <!-- This user icon gets shown only if the recipe was uploaded by the user. On hover a tooltip is shown warning that when clicked the recipe will be deleted from the database -->
+
+    <div class="recipe__user-generated tooltip ${
+      this._data.key ? '' : 'hidden'
+    }">
+    <svg>
+    <use href="${icons}#icon-delete"></use>
+  </svg>
+  <span class="tooltiptext">Remove user recipe</span>
+    </div>
 
 </div>
   </div>
