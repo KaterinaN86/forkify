@@ -79,7 +79,7 @@ class RecipeView extends View {
       <a id='5' >Saturday</a>
       <a id='6' >Sunday</a>     
     </div>
-    <span>&nbsp;</span>
+    <div>&nbsp;</div>
   </div> 
     <button class="btn--round btn--bookmark tooltip">
       <svg class="">
