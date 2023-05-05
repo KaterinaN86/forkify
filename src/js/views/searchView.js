@@ -3,7 +3,7 @@
 class searchView {
   _parentElement = document.querySelector('.search');
 
-  //adding the handler from the controller to the eventListener (piblisher subscriber pattern)
+  //adding the handler from the controller to the eventListener (publisher subscriber pattern)
   addHandlerSearch(handler) {
     //we use the submit event because that way we can get the input on button click and with enter as well
     this._parentElement.addEventListener('submit', function (e) {

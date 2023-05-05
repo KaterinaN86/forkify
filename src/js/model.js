@@ -54,7 +54,7 @@ const createRecipeObject = function (data) {
     title: recipe.title,
     image: recipe.image_url,
     sourceUrl: recipe.source_url,
-    //by using conditional operators, more specifically && which short circuits if one of the expressions is false, we can assing a value to a property and check if that property exists
+    //by using conditional operators, more specifically && which short circuits if one of the expressions is false, we can assign a value to a property and check if that property exists
     ...(recipe.key && { key: recipe.key }), //we use the spread operator to destructure the object from the second expression which is the result from this operation
     scheduled: [],
   };
@@ -117,9 +117,9 @@ export const loadRecipe = async function (id) {
     //checking if the current selected recipe is in the week array
     state.recipe.scheduled = checkWeekSchedule(state.recipe);
 
-    //there is a live connection between the exports and imporst so when the sate data is recieved it will also be updated in the controller.
+    //there is a live connection between the exports and imports so when the sate data is received it will also be updated in the controller.
   } catch (error) {
-    //in the heplper file we rethrow the error we get if a url doesn't return any data and that is why that error can be handled here
+    //in the helper file we rethrow the error we get if a url doesn't return any data and that is why that error can be handled here
 
     // console.error(`${error}✨✨✨✨`); //catching the error we throw in the try block
     //in order to get access to this error inside the controller we need to rethrow it
@@ -149,13 +149,13 @@ export const loadSearchResults = async function (query) {
       };
     });
 
-    //there is a live connection between the exports and imporst so when the sate data is recieved it will also be updated in the controller.
+    //there is a live connection between the exports and imports so when the sate data is received it will also be updated in the controller.
   } catch (error) {
     //in the helper file we rethrow the error we get if a url doesn't return any data and that is why that error can be handled here
-    //we need to propagate the error because the result from an async function is allways a fullfilled promise.
+    //we need to propagate the error because the result from an async function is always a fulfilled promise.
     //All sync functions return a promise and we can handle that promise. The fulfilled value from the received promise is the return value of the async function. In the then handler the result that we pass is the returned value from the promise. If there was an error while getting data in the whereAmI function the log where we handle the promise returned from that function will still run. That is why we need to rethrow the error at the end of the promise chain. Even though there is an error in the async function the promise that the async function returns is still fulfilled not rejected. Rethrowing the error will propagate It down the promise chain and so we will manually reject the promise from the async function.
 
-    // console.error(`${error}✨✨✨✨`); //catching the error we thow in the try block
+    // console.error(`${error}✨✨✨✨`); //catching the error we throw in the try block
     //in order to get access to this error inside the controller we need to rethrow it
     throw error;
   }
@@ -163,7 +163,7 @@ export const loadSearchResults = async function (query) {
 
 //this method returns only a part of the results, depending on the page
 export const getSearchResultsPage = function (page = state.search.currPage) {
-  //the deafult vaule is the current page
+  //the default value is the current page
   state.search.currPage = page;
   //when page is 1 start is 0 and end is 9
   const start = (page - 1) * state.search.resPerPage;
@@ -177,7 +177,7 @@ export const updateServings = function (newServings) {
   //we reach into the state and change the quantity of all of our ingredients
   state.recipe.ingredients.forEach(ingredient => {
     ingredient.quantity =
-      (ingredient.quantity * newServings) / state.recipe.servings; //using proportions to determain the new quantity
+      (ingredient.quantity * newServings) / state.recipe.servings; //using proportions to determine the new quantity
   });
   state.recipe.servings = newServings;
 };
@@ -194,7 +194,7 @@ export const addBookmark = function (recipe) {
   //adding the recipe to bookmarks
   state.bookmarks.push(recipe);
 
-  //everytime we add a bookmark there has been a change in the state so we need to persist the data
+  //every time we add a bookmark there has been a change in the state so we need to persist the data
   persistBookmarks();
 };
 
@@ -223,7 +223,7 @@ export const newRecipe = async function (newRecipe) {
     //the newRecipe we get is not structured the same as our state. First we need to put the ingredients in an array and define quantity, unit and description for each ingredient
     // console.log('Form data: ', newRecipe);
 
-    //we loop over the entries of the recipe object and we put only the ones whose key starts with 'ing' and have a value that is not an epmty string
+    //we loop over the entries of the recipe object and we put only the ones whose key starts with 'ing' and have a value that is not an empty string
     const ingArray = Object.entries(newRecipe).filter(
       entry => entry[0].startsWith('ing') && entry[1] !== ''
     );
@@ -235,7 +235,7 @@ export const newRecipe = async function (newRecipe) {
       //the temp array contains 3 elements (quantity, unit and description)
       const temp = ingredient[1].split(',');
 
-      //we loop over each element of the ingredient array in order to get rid of trailling spaces
+      //we loop over each element of the ingredient array in order to get rid of trailing spaces
       temp.forEach(ing => (ing = ing.trim()));
 
       //if the correct format was not used an error is thrown
@@ -249,7 +249,7 @@ export const newRecipe = async function (newRecipe) {
       return { quantity: quantity ? +quantity : null, unit, description };
     });
 
-    //this object needs to be in exactly the right format that API can recieve (reverse from the one we create in the state)
+    //this object needs to be in exactly the right format that API can receive (reverse from the one we create in the state)
     const recipe = {
       cooking_time: +newRecipe.cookingTime, //needs to be a number
       servings: +newRecipe.servings, //needs to be a number
@@ -263,7 +263,7 @@ export const newRecipe = async function (newRecipe) {
     //in the url template literal the ? specifies parameters like the search parameter we used before
     //this way by sending the key the recipe will be marked as our own
     const data = await AJAX(`${API_URL}?key=${KEY}`, recipe);
-    //as a response we get the status success fron the server and our data that was uploaded
+    //as a response we get the status success from the server and our data that was uploaded
     // console.log(data);
 
     //     Object
@@ -280,7 +280,7 @@ export const newRecipe = async function (newRecipe) {
     // source_url: "TESTk9"
     // title: "TESTk9
     state.recipe = createRecipeObject(data);
-    //every user recipe is automaticall added to the bookmarks
+    //every user recipe is automatically added to the bookmarks
     addBookmark(state.recipe);
   } catch (error) {
     throw error;
@@ -305,12 +305,12 @@ export const deleteRecResults = function () {
   state.search.results.forEach((res, i) => {
     if (res.id === state.recipe.id) index = i;
   });
-  //if there is such index the element form the reuslts array with that index is removed
+  //if there is such index the element form the results array with that index is removed
   if (index !== undefined) state.search.results.splice(index, 1);
 };
 
 //storing schedule data in local storage
-const persistShedule = function () {
+const persistSchedule = function () {
   localStorage.setItem('week', JSON.stringify(state.week));
 };
 
@@ -326,7 +326,7 @@ export const scheduleRecipe = function (rec, day) {
 
   //we check if the recipe we want to schedule is the currently active recipe
   if (state.recipe.id === rec.id) {
-    //check if the id mathces to a recipe that has already been scheduled for that day (avoid duplicates)
+    //check if the id matches to a recipe that has already been scheduled for that day (avoid duplicates)
     state.week.forEach(el => {
       //state.week has seven arrays as elements and the first element of every array is a weekday depending on the index (0 -> Monday, 1-> Tuesday ...)
       if (el[0] === dayName) {
@@ -339,8 +339,7 @@ export const scheduleRecipe = function (rec, day) {
 
   //adding a property to the recipe object. This property is an array of the indexes of the day the recipe has been scheduled for.
   state.recipe.scheduled = checkWeekSchedule(rec);
-
-  persistShedule();
+  persistSchedule();
 };
 
 /**
@@ -362,7 +361,7 @@ export const removeFromSchedule = function (id, day = 'all') {
   //we also update the data for the recipe object regarding the scheduled property
   state.recipe.scheduled = checkWeekSchedule(state.recipe);
   //writing the data in the local storage
-  persistShedule();
+  persistSchedule();
 };
 
 //storing shopping list data in local storage
