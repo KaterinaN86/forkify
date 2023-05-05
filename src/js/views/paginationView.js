@@ -36,29 +36,29 @@ class PaginationView extends View {
     );
   }
 
-  _generateButtonMarkup(dirrection) {
+  _generateButtonMarkup(direction) {
     //the number that needs to be displayed on the button itself
     const number =
-      dirrection === 'next' ? this._data.currPage + 1 : this._data.currPage - 1;
+      direction === 'next' ? this._data.currPage + 1 : this._data.currPage - 1;
 
     //button element
-    const markup = `<button data-page='${number}' class="btn--inline pagination__btn--${dirrection}">`;
+    const markup = `<button data-page='${number}' class="btn--inline pagination__btn--${direction}">`;
 
     //button text
     const span = `<span>Page ${number}</span>`;
 
-    //icon element. The arrow has different dirrection depending on the dirrection argument. It points to the right when the dirrection is next and to the left if the dirrection is previous
+    //icon element. The arrow has different direction depending on the direction argument. It points to the right when the direction is next and to the left if the direction is previous
     const icon = `<svg class="search__icon">
     <use href="${icons}#icon-arrow-${
-      dirrection === 'next' ? 'right' : 'left'
+      direction === 'next' ? 'right' : 'left'
     }"></use>
   </svg>`;
 
-    //depending on the dirrection the page number is shown first or the icon is shown first
+    //depending on the direction the page number is shown first or the icon is shown first
     return `${markup}${
-      dirrection === 'next' ? span + icon : icon + span
+      direction === 'next' ? span + icon : icon + span
     }</button>`;
-    //if dirrection is next the page number is shown first and if dirrection is previous the icon is shown first
+    //if direction is next the page number is shown first and if direction is previous the icon is shown first
   }
 
   //publisher method

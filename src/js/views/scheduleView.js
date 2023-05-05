@@ -24,7 +24,7 @@ class scheduleView extends View {
     this._data.forEach(element => {
       //we loop over each element of the week array
       element.forEach((rec, i) => {
-        //the name of the day is allways the first element
+        //the name of the day is always the first element
         if (i === 0) weekday = rec;
         //the other elements are recipes that we need markup for
         if (i !== 0) markup += this._generateRecipe(rec, weekday, currentId);

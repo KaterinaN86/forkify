@@ -2,7 +2,7 @@
 import View from './view.js';
 import icons from 'url:../../img/icons.svg';
 
-//this view is a bit different becase the markup is already present in our page but we just need to show it
+//this view is a bit different because the markup is already present in our page but we just need to show it
 class shoppingListView extends View {
   //the parent element is an upload form that is already a part of the HTML but it is hidden
   //we choose this element as a parent because we can later use the submit event on the form element
@@ -12,7 +12,7 @@ class shoppingListView extends View {
 
   //in this view we also need some other DOM elements
 
-  //the overlay is displayed over all of the elements excet the form
+  //the overlay is displayed over all of the elements except the form
   _overlay = document.querySelector('.overlay-list');
 
   //the modal

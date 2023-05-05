@@ -31,7 +31,7 @@ import { MODAL_CLOSE_SEC } from './config.js';
 // }
 
 /*
-//Function that controlls what is rendered on load, deines the current id and loads the corresponding recipe
+//Function that controls what is rendered on load, defines the current id and loads the corresponding recipe
 //has no parameters and doesn't return anything because any changes in data between model and controller are in sync thanks to the live connection 
 for loading the recipe an API call is made so this function is async
 */
@@ -53,9 +53,9 @@ const controlRecipes = async function () {
 
     //there is a live connection between exported and imported modules. This is why whenever the state object is updated in the model it is also updated in the controller
     await model.loadRecipe(id); //the data for the recipe object which is a state property is now defined
-    //the result from an async function is allways a promise, that is why we need to await the result
+    //the result from an async function is always a promise, that is why we need to await the result
 
-    //2. Rendering recipe -> recipe data comes from the model, again, it is in sync because of the live connection between moduler
+    //2. Rendering recipe -> recipe data comes from the model, again, it is in sync because of the live connection between modules
     recipeView.render(model.state.recipe); //the name render is often used (also used in react) and it is very descriptive
 
     //update dropdown
@@ -63,7 +63,7 @@ const controlRecipes = async function () {
   } catch (error) {
     //catching the error we throw in the try block
     recipeView.renderError();
-    //it's usefull to see the acctual error when debugging
+    //it's useful to see the actual error when debugging
     // console.log(error);
   }
 };
@@ -139,7 +139,7 @@ const controlAddRecipe = async function (data) {
     //we need to show the user that an action is being performed
     addRecipeView.renderSpinner();
 
-    //we use the await keyword beacuse this function makes an API call and returns a promise
+    //we use the await keyword because this function makes an API call and returns a promise
     await model.newRecipe(data);
 
     //show the recipe that was uploaded
@@ -151,7 +151,7 @@ const controlAddRecipe = async function (data) {
     //render bookmarks to show our recipe
     bookmarksView.render(model.state.bookmarks);
 
-    //for chaging the id in the state we use the history API. here we can access the pushState method which takes three argments: state (null),title ('') and the URL
+    //for changing the id in the state we use the history API. here we can access the pushState method which takes three arguments: state (null),title ('') and the URL
     window.history.pushState(null, '', `#${model.state.recipe.id}`);
 
     //the modal needs to be hidden in order for the recipe to be visible. We use a timer because we want to display a success message before closing the modal
@@ -228,7 +228,7 @@ const controlAddToList = function () {
 };
 
 /**
- * Updates qunatity for a certain ingredient in the shopping list modal
+ * Updates quantity for a certain ingredient in the shopping list modal
  * @param {String} id ingredient unique id
  * @param {String} quantity
  */
@@ -253,7 +253,7 @@ const controlDeleteListItem = function (id) {
  * @param {String} id the id of the recipe that needs to be removed from schedule
  */
 const controlDeleteRecipeFromSchedule = function (day, id) {
-  //we call this function so that the neccessary changes in the state are made
+  //we call this function so that the necessary changes in the state are made
   model.removeFromSchedule(id, day);
 
   //we update the dropdown in the recipe view so that the correct days are highlighted
@@ -262,7 +262,7 @@ const controlDeleteRecipeFromSchedule = function (day, id) {
   //we render the schedule pane again with the new data from the state
   scheduleView.render(model.state.week);
 };
-
+//Called on site load.
 const init = function () {
   bookmarksView.addHandlerLoadBookmarks(controlBookmarks);
   scheduleView.addHandlerLoadSchedule(controlSchedule);
@@ -279,7 +279,6 @@ const init = function () {
   scheduleView.addHandlerDeleteRecipe(controlDeleteRecipeFromSchedule);
   shoppingListView.addHandlerUpdateQuantity(controlUpdateQuantity);
   shoppingListView.addHandlerDeleteIng(controlDeleteListItem);
-  
 };
 
 init();

@@ -11,7 +11,8 @@ export default class View {
   //external function for adding the spinner
   //this method is public so that the controller can call it
   renderSpinner() {
-    const markup = `<div class="spinner">
+    const markup = `
+  <div class="spinner">
     <svg>
       <use href="${icons}#icon-loader"></use>
     </svg>
@@ -24,7 +25,7 @@ export default class View {
    * this method together with the two properties will be present in all the view classes. It is public and we use it to pass in the data from the controller
    * @param {Object} data that needs to be rendered (a recipe object, a result object, bookmarks, week schedule, shoppingList)
    * @param {boolean} render clears parent content and inserts markup when true, returns markup as string when false
-   * @return {String, undefined} Sttring when it is called by a PreviewView instance or undefined otherwise
+   * @return {String, undefined} String when it is called by a PreviewView instance or undefined otherwise
    */
   render(data, render = true) {
     //we need to check if there is data and if that data is an empty array because in that case we need to handle this error by rendering the error message in the parent element
@@ -62,14 +63,14 @@ export default class View {
    */
   renderError(message = this._errorMessage) {
     this._clear();
-
-    const markup = `   <div class="error">
-    <div>
-      <svg>
+    const markup = `
+  <div class="error">
+      <div>
+        <svg>
         <use href="${icons}#icon-alert-triangle"></use>
-      </svg>
-    </div>
-    <p>${message}</p>
+        </svg>
+      </div>
+      <p>${message}</p>
   </div>`;
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
@@ -93,18 +94,18 @@ export default class View {
   update(data) {
     this._data = data;
 
-    //based on the data recieved by the controller new markup is generated
+    //based on the data received by the controller new markup is generated
     const newMarkup = this._generateMarkup();
 
-    //creating a virtual DOM object so that we can compare it to the actuall DOM object living on our page
+    //creating a virtual DOM object so that we can compare it to the actual DOM object living on our page
     const newElements = Array.from(
       document
         .createRange()
         .createContextualFragment(newMarkup)
         .querySelectorAll('*')
-    ); //with qery selector all we can get all of the new elements of our virtual DOM object
+    ); //with query selector all we can get all of the new elements of our virtual DOM object
 
-    const currElements = Array.from(this._parentElement.querySelectorAll('*')); //all of the elemtns in our current parent element
+    const currElements = Array.from(this._parentElement.querySelectorAll('*')); //all of the elements in our current parent element
 
     //looping over the two arrays at the same time
     newElements.forEach((newElement, i) => {

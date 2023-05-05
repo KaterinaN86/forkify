@@ -1,12 +1,12 @@
 'use strict';
 
-//setting the path to the images after parcel has performed transpilling and polyfilling
+//setting the path to the images after parcel has performed transpiling and polyfilling
 import icons from 'url:../../img/icons.svg'; //new path to the icons(http://localhost:1234/icons.dfd7a6db.svg?1656793914508) we write url: for every static asset that is not a programing file
 
 //the view part is typically bigger and that is why we often separate it into different files
 //we use a class because there will be a parent class View that will contain methods and properties that all the other view classes inherit. This also enables encapsulating properties and methods we want to keep private
 
-//importing from npm libraries desn't require specifying a path
+//importing from npm libraries doesn't require specifying a path
 import fracty from 'fracty';
 
 import View from './view.js';
@@ -18,7 +18,8 @@ class RecipeView extends View {
 
   //in this view we generate markup that shows the bookmark icon (empty or filled) the schedule dropdown and also a user icon if the recipe has an unique user key which means it has been uploaded by the user and olny the user can see it
   _generateMarkup() {
-    return ` <figure class="recipe__fig">
+    return `
+    <figure class="recipe__fig">
     <img src= "${this._data.image}" alt="${
       this._data.title
     }" class="recipe__img" />
@@ -114,10 +115,8 @@ class RecipeView extends View {
   <div class="recipe__ingredients">
     <h2 class="heading--2">Recipe ingredients</h2>
     <ul class="recipe__ingredient-list">
-     
-
-     ${this._data.ingredients.map(this._generateMarkupIngredient).join('')}
-          
+    <!-- adding generated HTML for list of ingredients. Join method is used to convert array to String. -->
+    ${this._data.ingredients.map(this._generateMarkupIngredient).join('')}          
 </ul>
   <div class="recipe__directions">
     <h2 class="heading--2">How to cook it</h2>

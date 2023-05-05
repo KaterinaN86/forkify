@@ -3,7 +3,7 @@ import View from './view.js';
 
 import { MODAL_DATA } from '../config.js';
 
-//this view is a bit different becase the markup is already present in our page but we just need to show it
+//this view is a bit different because the markup is already present in our page but we just need to show it
 class addRecipeView extends View {
   //the parent element is an upload form that is already a part of the HTML but it is hidden
   //we choose this element as a parent because we can later use the submit event on the form element
@@ -11,7 +11,7 @@ class addRecipeView extends View {
 
   //in this view we also need some other DOM elements
 
-  //the overlay is displayed over all of the elements excet the form
+  //the overlay is displayed over all of the elements except the form
   _overlay = document.querySelector('.overlay');
   //the modal
   _window = document.querySelector('.add-recipe-window');
@@ -70,10 +70,10 @@ class addRecipeView extends View {
     );
   };
 
-  //uploads our data if it is correctly formated
+  //uploads our data if it is correctly formatted
   addHandlerUpload(handler) {
     this._parentElement.addEventListener('submit', function (e) {
-      //pervents page reload
+      //prevents page reload
       e.preventDefault();
       //form data is a modern browser API that we can use to retrieve data from the DOM. When we call the constructor we need to pass in a form element
       const entries = [...new FormData(this)]; //we can spread the object into an array in order to access the data
@@ -107,7 +107,7 @@ class addRecipeView extends View {
   }
 
   /**
-   *chekcks if the data entered by the user corresponds to the requirements
+   *checks if the data entered by the user corresponds to the requirements
    * @param {Event} e event object and it represents the event being fired
    * @returns
    */
@@ -121,7 +121,7 @@ class addRecipeView extends View {
     const description = document.getElementById('description');
     const textArea = document.querySelector('.label--ingredients');
 
-    //reseting the ingredients array if there are no ingredients in the text area
+    //resetting the ingredients array if there are no ingredients in the text area
     if (!textArea.value.includes(',')) this._textAreaArr = [];
 
     //we hide the label that notifies the user if the input is not valid
@@ -138,7 +138,7 @@ class addRecipeView extends View {
 
     //adding the data for one ingredient to the ingredients array
     if (!notValid) this._textAreaArr.push(ing);
-    //showing the labler for wrong input
+    //showing the label for wrong input
     else labelWrong.classList.remove('hidden');
 
     //showing the ingredients
@@ -153,5 +153,4 @@ class addRecipeView extends View {
     this._window.addEventListener('click', this._getIngredient.bind(this));
   }
 }
-
 export default new addRecipeView();
