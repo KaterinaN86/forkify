@@ -16,7 +16,7 @@ class RecipeView extends View {
   _errorMessage = `We couldn't find the recipe! Please try another.`;
   _message = ``;
 
-  //in this view we generate markup that shows the bookmark icon (empty or filled) the schedule dropdown and also a user icon if the recipe has an unique user key which means it has been uploaded by the user and olny the user can see it
+  //in this view we generate markup that shows the bookmark icon (empty or filled) the schedule dropdown and also a delete recipe icon. If the recipe has an unique user key it means it has been uploaded by the user and only the user can see it and delete it from database.
   _generateMarkup() {
     return `
     <figure class="recipe__fig">
@@ -116,7 +116,9 @@ class RecipeView extends View {
     <h2 class="heading--2">Recipe ingredients</h2>
     <ul class="recipe__ingredient-list">
     <!-- adding generated HTML for list of ingredients. Join method is used to convert array to String. -->
-    ${this._data.ingredients.map(this._generateMarkupIngredient).join('')}          
+    ${this._data.ingredients
+      .map(this._generateMarkupIngredient)
+      .join('')}          
 </ul>
   <div class="recipe__directions">
     <h2 class="heading--2">How to cook it</h2>

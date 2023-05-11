@@ -50,9 +50,6 @@ class addRecipeView extends View {
 
   //we use bind because the this keyword inside the callback function points to the element on which the listener is attached
   _addHandlerAddRecipe = function () {
-    // //this text area contains our ingredient list
-    // this._textAreaArr = [];
-
     this._openModalBtn.addEventListener(
       'click',
       this._toggleAddRecipe.bind(this)
@@ -102,7 +99,6 @@ class addRecipeView extends View {
   //method that checks if the entered quantity is a number and if the user has entered a description
   _valdateIngInput(quantity, description) {
     if (!Number.isFinite(+quantity.value)) quantity.value = undefined;
-
     if (description.value === '') description.value = undefined;
   }
 
