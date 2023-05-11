@@ -69,13 +69,16 @@ export default class View {
         <svg>
         <use href="${icons}#icon-alert-triangle"></use>
         </svg>
+        <p id="error-message-p-element">${message}</p>
       </div>
-      <p id="error-message-p-element">${message}</p>
   </div>`;
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
-  //displaying a success message in the parentElement
+  /**
+   *displaying a success message in the parentElement
+   * @param {*} message String defined by data in current app state.
+   */
   renderMessage(message = this._message) {
     this._clear();
 
@@ -90,7 +93,10 @@ export default class View {
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
-  //this method can be used instead of the render method whenever we want to update only a part of the interface. That part is the text and the attributes, like for example when we want to highlight the active recipe or change the quantity in ingredients based on the change in servings
+  /**
+   *this method can be used instead of the render method whenever we want to update only a part of the interface. That part is the text and the attributes, like for example when we want to highlight the active recipe or change the quantity in ingredients based on the change in servings
+   * @param {*} data drawn from the current state of the app
+   */
   update(data) {
     this._data = data;
 
@@ -104,14 +110,11 @@ export default class View {
         .createContextualFragment(newMarkup)
         .querySelectorAll('*')
     ); //with query selector all we can get all of the new elements of our virtual DOM object
-
     const currElements = Array.from(this._parentElement.querySelectorAll('*')); //all of the elements in our current parent element
-
     //looping over the two arrays at the same time
     newElements.forEach((newElement, i) => {
       const currElement = currElements[i];
-      //we use the isEqualNode method to compare the content of the both elements. We also use the nodeVale property that is a String equal to the text content if the Element contains text otherwise it is null. We also use the property called firstChild that returns the node's first child in the DOM tree if there is any. White space interferes with the result of first child and that is why the result from firstChild is often a text node '#text'
-
+      // ! we use the isEqualNode method to compare the content of the both elements. We also use the nodeVale property that is a String equal to the text content if the Element contains text otherwise it is null. We also use the property called firstChild that returns the node's first child in the DOM tree if there is any. White space interferes with the result of first child and that is why the result from firstChild is often a text node '#text'
       if (
         !newElement.isEqualNode(currElement) &&
         //if the first child exists (optional chaining) and it is a node that contains an element instead text than the nodeValue will be null

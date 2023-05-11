@@ -41,7 +41,11 @@ export const state = {
   listItems: [],
 };
 
-//create recipe object
+/**
+ *create recipe object
+ * @param {*} data object derived from current app state.
+ * @returns recipe object
+ */
 const createRecipeObject = function (data) {
   const { recipe } = data.data;
 
@@ -60,14 +64,9 @@ const createRecipeObject = function (data) {
   };
 };
 
-// /**
 //  * function used to create an array of arrays where the first element is the weekday and the rest are the scheduled recipes
 //  *
 //  * @return
-//  *
-//  *
-//  */
-
 const createWeekArray = function () {
   state.week = WEEK_DAYS.map(day => [day]);
 };
