@@ -70,7 +70,7 @@ export default class View {
         <use href="${icons}#icon-alert-triangle"></use>
         </svg>
       </div>
-      <p>${message}</p>
+      <p id="error-message-p-element">${message}</p>
   </div>`;
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
