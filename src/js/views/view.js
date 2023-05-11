@@ -18,6 +18,7 @@ export default class View {
     </svg>
   </div>`;
     this._clear();
+    //Parent element object, defined in each child class correspondingly.
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
@@ -77,7 +78,7 @@ export default class View {
 
   /**
    *displaying a success message in the parentElement
-   * @param {*} message String defined by data in current app state.
+   * @param {String} message defined by data in current app state.
    */
   renderMessage(message = this._message) {
     this._clear();
@@ -94,22 +95,20 @@ export default class View {
   }
 
   /**
-   *this method can be used instead of the render method whenever we want to update only a part of the interface. That part is the text and the attributes, like for example when we want to highlight the active recipe or change the quantity in ingredients based on the change in servings
-   * @param {*} data drawn from the current state of the app
+   *This method can be used instead of the render method whenever we want to update only a part of the interface. That part is the text and the attributes, like for example when we want to highlight the active recipe or change the quantity in ingredients based on the change in servings.
+   * @param {Object} data derived from the current state of the app.
    */
   update(data) {
     this._data = data;
-
-    //based on the data received by the controller new markup is generated
+    //based on the data received by the controller new markup is generated.
     const newMarkup = this._generateMarkup();
-
     //creating a virtual DOM object so that we can compare it to the actual DOM object living on our page
     const newElements = Array.from(
       document
         .createRange()
         .createContextualFragment(newMarkup)
         .querySelectorAll('*')
-    ); //with query selector all we can get all of the new elements of our virtual DOM object
+    ); //with query selector all we can get all of the new elements of our virtual DOM object.
     const currElements = Array.from(this._parentElement.querySelectorAll('*')); //all of the elements in our current parent element
     //looping over the two arrays at the same time
     newElements.forEach((newElement, i) => {
@@ -122,7 +121,6 @@ export default class View {
       )
         //we need to be careful when using this property because setting textContent on a node removes all of the node's children and replaces them with a single text node with the given string value
         currElement.textContent = newElement.textContent;
-
       if (!newElement.isEqualNode(currElement)) {
         //we create an array of all the attributes of the elements that are different (for example [class] or [data-new-servings, class]). We use the forEach method to loop over that array and set the attribute of the corresponding element of our current DOM
         Array.from(newElement.attributes).forEach(attribute =>

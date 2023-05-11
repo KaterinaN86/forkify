@@ -1,14 +1,9 @@
 import icons from 'url:../img/icons.svg';
-
-export const API_URL = 'https://forkify-api.herokuapp.com/api/v2/recipes/'; //using uppercase because it is a constant
-
-export const TIMEOUT_SEC = 10; //used for the timer that races with the call to the API. Prevents taking too long to display results
-
-export const RES_PER_PAGE = 10; //number of results from the search query shown on each page using pagination
-
-export const KEY = 'c6d1f37c-9411-4f09-bef9-f6044dfea156'; //private user specific key
-
-export const MODAL_CLOSE_SEC = 2.5; //used for timer that delays the closing of the modal addRecipe window
+export const API_URL = 'https://forkify-api.herokuapp.com/api/v2/recipes/'; //using uppercase because it is a constant.
+export const TIMEOUT_SEC = 10; //used for the timer that races with the call to the API. Prevents taking too long to display results.
+export const RES_PER_PAGE = 10; //number of results from the search query shown on each page using pagination.
+export const KEY = 'c6d1f37c-9411-4f09-bef9-f6044dfea156'; //private user specific key.
+export const MODAL_CLOSE_SEC = 2.5; //used for timer that delays the closing of the modal addRecipe window.
 //HTML code for adding new recipe, displayed in modal window.
 export const MODAL_DATA = `
 <div class="upload__column">

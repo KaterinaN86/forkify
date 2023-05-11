@@ -1,6 +1,5 @@
 'use strict';
-
-//numbers that just appear out of nowhere are stored like constants in a config file
+//numbers that "just appear out of nowhere" (hard coded) are stored like constants in a config file.
 import {
   API_URL,
   RES_PER_PAGE,
@@ -11,44 +10,37 @@ import {
 
 //ajax calls to the forkify API are made using one method
 import { AJAX } from './helper';
-
 //for generating unique id
 import uniqid from 'uniqid';
-
 //for polyfilling of async functions
 import { async } from 'regenerator-runtime/runtime';
 
-//this object contains all the application data. It is exported so in can be used in the controller
+//this object contains all the application data. It is exported so it can be used in the controller.
 export const state = {
-  //recipe whose current id is in the hash
+  //recipe whose current id is in the hash.
   recipe: {},
-
   //search query and the search results data
   search: {
     query: '', //keyword entered by the user
-    results: [], //the results from the API call based on the query
+    results: [], //the results from the API call based on the query. This is an array of recipe objects in a simplified form (as defined in loadSearchResults method).
     currPage: 1, //the page the user is currently on while viewing the results
     resPerPage: RES_PER_PAGE, //a constant number defined in the config file
   },
-
   //an array of recipes that have the bookmark property set to true
   bookmarks: [],
-
   //an a array of objects where the first element is the day of the week and the others are the recipes scheduled for that day
   week: [],
-
   //am array of ingredients placed in the shopping list
   listItems: [],
 };
 
 /**
  *create recipe object
- * @param {*} data object derived from current app state.
+ * @param {Object} data object derived from current app state.
  * @returns recipe object
  */
 const createRecipeObject = function (data) {
   const { recipe } = data.data;
-
   return {
     id: recipe.id,
     publisher: recipe.publisher,
@@ -70,7 +62,7 @@ const createRecipeObject = function (data) {
 const createWeekArray = function () {
   state.week = WEEK_DAYS.map(day => [day]);
 };
-
+//This is what the week array looks like.
 //(7) [Array(1), Array(1), Array(1), Array(1), Array(1), Array(1), Array(1)]
 // 0: ['Monday']
 // 1: ['Tuesday']
@@ -83,91 +75,88 @@ const createWeekArray = function () {
 /**
  * we use this method to highlight the days the recipe has been scheduled for
  * @param  {Object} rec the recipe object we are looking for in the state.week Array
- * @return {Array}      an array on index numbers corresponding to the WEEK_DAYS array (0->Monday and so on)
+ * @return {Array} an array on index numbers corresponding to the WEEK_DAYS array (0->Monday and so on)
  */
 export const checkWeekSchedule = function (rec) {
+  //Array of index numbers.
   const days = [];
-  //we check if the recipe is in the weekly plan and if it is we add the index to the days array. This way we know which days the recipe is scheduled to bee cooked (days names are in the WEEK_DAYS constant array)
+  //we check if the recipe is in the weekly plan and if it is we add the index to the days array. This way we know which days the recipe is scheduled to bee cooked (days names are in the WEEK_DAYS constant array).
   state.week.forEach((day, i) => {
     //we check if any of the array elements contain the recipe id
     if (day.some(el => el?.id === rec.id)) days.push(i); //if that is the case, the index is added to the days array
   });
   return days;
 };
-
+/**
+ * Loads data for current recipe by making an API call.
+ * @param {String} id of current recipe.
+ */
 export const loadRecipe = async function (id) {
-  //we get the id from the controller
-  //this function will be called by controllRecipe that is a part of the controller
-
-  //we call getJSON which is imported from the helper file
-
+  //we get the id from the controller.
+  //this function will be called by controllRecipe that is a part of the controller.
+  //we call getJSON which is imported from the helper file.
   try {
     //if the recipe is one of our own it will contain our key in the url. When we get the recipe from the API we also send a query with our key.
     const data = await AJAX(`${API_URL}${id}?key=${KEY}`);
-
     //we call the function that creates an object from the API data
     state.recipe = createRecipeObject(data);
-
-    //checking if the current selected recipe is in the bookmarks array
+    //checking if the current selected recipe is in the bookmarks array.
     if (state.bookmarks.some(bookmark => bookmark.id === id))
       state.recipe.bookmarked = true;
     else state.recipe.bookmarked = false;
-
     //checking if the current selected recipe is in the week array
     state.recipe.scheduled = checkWeekSchedule(state.recipe);
-
     //there is a live connection between the exports and imports so when the sate data is received it will also be updated in the controller.
   } catch (error) {
-    //in the helper file we rethrow the error we get if a url doesn't return any data and that is why that error can be handled here
-
+    //in the helper file we rethrow the error we get if a url doesn't return any data and that is why that error can be handled here.
     // console.error(`${error}✨✨✨✨`); //catching the error we throw in the try block
     //in order to get access to this error inside the controller we need to rethrow it
     throw error;
   }
 };
 
-//loading recipes based on a search query
+/**
+ *loading recipes based on a search query
+ * @param {String} query
+ */
 export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
-    //a common way of sending values of variables via an url is a search query like this
-    // https://forkify-api.herokuapp.com/api/v2/recipes?search=pizza (search is set to pizza)
-    // in our case we use a query from the UI and with the '&' symbol we also send our unique user key so that we can also see the recipes added by the user
+    /*a common way of sending values of variables via an url is a search query like this: // https://forkify-api.herokuapp.com/api/v2/recipes?search=pizza (search is set to pizza), in our case we use a query from the UI and with the '&' symbol we also send our unique user key so that we can also see the recipes added by the user. The variable named "data" stores the results from the AJAX call.*/
     const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
-
-    //in the search results we display a simpler version of the recipe object. Using the data we got from the API call we create this object for each result
+    //In the search results view, a simpler version of the recipe object is displayed. Using the data we got from the API call, this object type of object is created for each result recipe.
     state.search.results = data.data.recipes.map(recipe => {
       return {
         id: recipe.id,
         publisher: recipe.publisher,
-
         title: recipe.title,
         image: recipe.image_url,
         //first we need to check if the recipe has a key. If it does than the created object will be destructured and so we get our new property
         ...(recipe.key && { key: recipe.key }),
       };
     });
-
     //there is a live connection between the exports and imports so when the sate data is received it will also be updated in the controller.
   } catch (error) {
     //in the helper file we rethrow the error we get if a url doesn't return any data and that is why that error can be handled here
     //we need to propagate the error because the result from an async function is always a fulfilled promise.
     //All sync functions return a promise and we can handle that promise. The fulfilled value from the received promise is the return value of the async function. In the then handler the result that we pass is the returned value from the promise. If there was an error while getting data in the whereAmI function the log where we handle the promise returned from that function will still run. That is why we need to rethrow the error at the end of the promise chain. Even though there is an error in the async function the promise that the async function returns is still fulfilled not rejected. Rethrowing the error will propagate It down the promise chain and so we will manually reject the promise from the async function.
-
     // console.error(`${error}✨✨✨✨`); //catching the error we throw in the try block
     //in order to get access to this error inside the controller we need to rethrow it
     throw error;
   }
 };
 
-//this method returns only a part of the results, depending on the page
+/**
+ *this method returns only a part of the results, depending on the page
+ * @param {Integer} page corresponds to current page number.
+ * @returns a part of the state.search.results Array starting from the "start" index and ending with the object that precedes the one with the "end" index.
+ */
 export const getSearchResultsPage = function (page = state.search.currPage) {
   //the default value is the current page
   state.search.currPage = page;
   //when page is 1 start is 0 and end is 9
   const start = (page - 1) * state.search.resPerPage;
   const end = page * state.search.resPerPage;
-
   return state.search.results.slice(start, end); //slice doesn't include the last value
 };
 
@@ -412,7 +401,7 @@ const newFeature = function () {
 
 //loading the bookmarks data, schedule data and shopping list from local storage
 const init = function () {
-  //initiallizing the week property
+  //initializing the week property.
   createWeekArray();
 
   //reading data from local storage

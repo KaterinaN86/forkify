@@ -5,32 +5,34 @@ import View from './view.js';
 import icons from 'url:../../img/icons.svg';
 
 class scheduleView extends View {
+  //Define parent element where content will be displayed for this view.
   _parentElement = document.querySelector('.schedule-list');
+  //Message that will be displayed if no recipe has been added to schedule.
   _errorMessage = 'No scheduled recipes yet. Find a nice recipe and add it :)';
   _message = '';
-
-  //we add this property so we can use it in the render metod
+  //we add this property so we can use it in the render method.
   _schedule = true;
-
+  /**
+   * Defines markup for displaying list of previews of scheduled recipes.
+   * @returns {String} markup (generated markup string).
+   */
   _generateMarkup() {
-    const currentId = window.location.hash.slice(1); //with this we get the id of the current recipe from the hash in the url not including the # symbol because we start to slice from the seccond character
+    const currentId = window.location.hash.slice(1); //with this we get the id of the current recipe from the hash in the url not including the # symbol because we start to slice from the second character.
 
-    //Day of the week the recipe has been scheduled to be cooked
+    //Day of the week the recipe has been scheduled to be cooked.
     let weekday = '';
-    //the generated string
+    //Initializing the generated string.
     let markup = '';
-
     //we loop over the week array
     this._data.forEach(element => {
       //we loop over each element of the week array
       element.forEach((rec, i) => {
         //the name of the day is always the first element
         if (i === 0) weekday = rec;
-        //the other elements are recipes that we need markup for
+        //the other elements are recipes that we need markup for.
         if (i !== 0) markup += this._generateRecipe(rec, weekday, currentId);
       });
     });
-
     return markup;
   }
 

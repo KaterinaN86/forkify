@@ -2,13 +2,10 @@
 
 //for polyfilling of all features
 import 'core-js/stable';
-
 //for polyfilling of async functions
 import { async } from 'regenerator-runtime/runtime';
-
 //importing all named exports from the model
 import * as model from './model.js';
-
 //views
 import recipeView from './views/recipeView.js'; //this way we get access to the public methods  (API) in the recipeView class and all the other classes for the different views
 import searchView from './views/searchView.js';
@@ -20,72 +17,53 @@ import scheduleView from './views/scheduleView.js';
 import shoppingListView from './views/shoppingListView.js';
 //constant for timer on close addRecipe modal
 import { MODAL_CLOSE_SEC } from './config.js';
-
-// https://forkify-api.herokuapp.com/v2
-
-///////////////////////////////////////
-
-// //saving the state
+//saving the state
 // if (module.hot) {
 //   module.hot.accept();
 // }
 
-/*
-//Function that controls what is rendered on load, defines the current id and loads the corresponding recipe
-//has no parameters and doesn't return anything because any changes in data between model and controller are in sync thanks to the live connection 
-for loading the recipe an API call is made so this function is async
-*/
+//Asynchronous function that controls what is rendered on load, defines the current id and loads corresponding recipe. Takes no parameters and doesn't return anything because any changes in data between model and controller are in sync thanks to the live connection. For loading the recipe an API call is made so this function is async.
 const controlRecipes = async function () {
   try {
-    //dynamically get the id
+    //dynamically get the id.
     const id = window.location.hash.slice(1); //removing the first symbol
-
-    //guard clause for when we have no id
+    //guard clause for when we have no id.
     if (!id) return;
-
     //1. Loading spinner
     recipeView.renderSpinner();
-
-    //update results, bookmarks and schedule to highlight active recipe
+    //update results, bookmarks and schedule to highlight active recipe.
     resultsView.update(model.getSearchResultsPage());
     bookmarksView.update(model.state.bookmarks);
+    //When calling the update method in a scheduleView object, the data that is being passed on consists of the week array of attribute of the current state object.
     scheduleView.update(model.state.week);
-
-    //there is a live connection between exported and imported modules. This is why whenever the state object is updated in the model it is also updated in the controller
+    //there is a live connection between exported and imported modules. This is why whenever the state object is updated in the model it is also updated in the controller.
     await model.loadRecipe(id); //the data for the recipe object which is a state property is now defined
-    //the result from an async function is always a promise, that is why we need to await the result
-
+    //the result from an async function is always a promise, that is why we need to await the result.
     //2. Rendering recipe -> recipe data comes from the model, again, it is in sync because of the live connection between modules
-    recipeView.render(model.state.recipe); //the name render is often used (also used in react) and it is very descriptive
-
+    recipeView.render(model.state.recipe); //the name render is often used (also used in react) and it is very descriptive.
     //update dropdown
     recipeView.updateDropdown(model.state.recipe.scheduled);
   } catch (error) {
-    //catching the error we throw in the try block
+    //catching the error we throw in the try block of the loadRecipe() method.
     recipeView.renderError();
     //it's useful to see the actual error when debugging
     // console.log(error);
   }
 };
 
-//we get the query from the corresponding view and we render the results based on the data we have recieved from the model
+//Method that renderers search results based on UI query. The query id retrieved from the corresponding view and we render the results based on the data we have received from the model.
 const controlSearchResults = async function () {
   try {
     //while we wait for the results a spinner can be shown
     resultsView.renderSpinner();
-
-    //to get the query we need to access the UI
+    //to get the query we need to access the UI.
     const query = searchView.getQuery();
-
     //guard clause
     if (!query) return;
-
-    //loading results
+    //Method loadSearchResults()
     await model.loadSearchResults(query);
-
-    //rendering only a part of the search results. This is important for better user experience. we also need to render the elements that enable pagination in order for the remaining results to be shown
+    //rendering only a part of the search results. This is important for better user experience. we also need to render the elements that enable pagination in order for the remaining results to be shown.
     resultsView.render(model.getSearchResultsPage(1)); //we render only a certain number of recipes per page
-
     //for rendering the pagination we need data from the search property in the state
     //here we have all of the results, the number of recipe shown on a page, the current page and the query
     paginationView.render(model.state.search);
@@ -138,22 +116,16 @@ const controlAddRecipe = async function (data) {
   try {
     //we need to show the user that an action is being performed
     addRecipeView.renderSpinner();
-
     //we use the await keyword because this function makes an API call and returns a promise
     await model.newRecipe(data);
-
     //show the recipe that was uploaded
     recipeView.render(model.state.recipe);
-
     //display success message
     addRecipeView.renderMessage();
-
     //render bookmarks to show our recipe
     bookmarksView.render(model.state.bookmarks);
-
     //for changing the id in the state we use the history API. here we can access the pushState method which takes three arguments: state (null),title ('') and the URL
     window.history.pushState(null, '', `#${model.state.recipe.id}`);
-
     //the modal needs to be hidden in order for the recipe to be visible. We use a timer because we want to display a success message before closing the modal
 
     setTimeout(function () {
