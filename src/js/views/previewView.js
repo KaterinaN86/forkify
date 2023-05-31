@@ -5,7 +5,6 @@ import icons from 'url:../../img/icons.svg';
 
 class previewView extends View {
   //parent element depends on the instance that will use this class (BookmarksView or ResultsView)
-
   _parentElement = '';
 
   //we need to remove the active class in order to avoid all the recipes being highlighted
@@ -14,7 +13,7 @@ class previewView extends View {
     const currentId = window.location.hash.slice(1); //with this we get the id of the current recipe from the hash in the url
 
     //next we need to check if the currentId is equal to the one in the recipe from the results
-    //href="#${this._data.id}" in the <a> element sets the hash value to the id of the selected recipe so it's data will be rendered bbecause there is an event listener on the 'hashchange' event
+    //href="#${this._data.id}" in the <a> element sets the hash value to the id of the selected recipe so it's data will be rendered because there is an event listener on the 'hashchange' event
     return `
     <li class="preview">
       <a class="preview__link ${

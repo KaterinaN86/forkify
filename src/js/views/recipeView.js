@@ -181,7 +181,7 @@ class RecipeView extends View {
     });
   }
 
-  //this methods handles both bookmarking and unbookmarking. What action will take place depends od the  data from the model state (weather the recipe is currently bookmarked or not)
+  //this methods handles both bookmarking and un-bookmarking. What action will take place depends od the  data from the model state (weather the recipe is currently bookmarked or not)
   addHandlerAddBookmark(handler) {
     //again we use event delegation because the element that is the event target does not exist when the application is first loaded
     this._parentElement.addEventListener('click', function (e) {
@@ -220,7 +220,7 @@ class RecipeView extends View {
     });
   }
 
-  //updates the dropdown containing the days of the week. Depending on the reci[e.scheduled property]
+  //updates the dropdown containing the days of the week. Depending on the recipe.scheduled property]
   updateDropdown(days = []) {
     const dropdownEL = this._parentElement.querySelector('.dropdown-content');
 
